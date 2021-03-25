@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   version: '1.0'
   title: "ArticlesAPI"
-  description: Articles is a simple API allowing consumers to view and edit articles in ACME Magazine.
+  description: Articles is a simple API allowing consumers to view and edit articles in ACME Magazine Test.
   license:
     name: MIT
     url: https://github.com/bogdaneremia/articlesservice/blob/main/LICENSE
@@ -143,11 +143,6 @@ paths:
           type: integer
           minimum: 1
           description: Article Id
-        - name: body
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ArticleRequest'
       responses:
         204:
           description: 'No content'
