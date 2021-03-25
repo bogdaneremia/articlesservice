@@ -5,8 +5,8 @@ info:
   description: Articles is a simple API allowing consumers to view and edit articles in ACME Magazine.
   license:
     name: MIT
-    url: https://github.com/apiaryio/polls-api/blob/master/LICENSE
-host: articles.apiblueprint.org
+    url: https://github.com/bogdaneremia/articlesservice/blob/main/LICENSE
+host: articles.oraclecloud.org
 schemes:
 - https
 consumes:
