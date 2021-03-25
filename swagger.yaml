@@ -143,11 +143,6 @@ paths:
           type: integer
           minimum: 1
           description: Article Id
-        - name: body
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ArticleRequest'
       responses:
         204:
           description: 'No content'
