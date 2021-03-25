@@ -1,0 +1,204 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: "ArticlesAPI"
+  description: Articles is a simple API allowing consumers to view and edit articles in ACME Magazine.
+  license:
+    name: MIT
+    url: https://github.com/apiaryio/polls-api/blob/master/LICENSE
+host: articles.apiblueprint.org
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /Article:
+    x-summary: Articles
+    get:
+      description: >-
+        You may list all Article using this action.
+      summary: Lists all Articles
+      responses:
+        200:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/ArticlesList'
+          examples:
+            application/json:
+              items:
+                  - id: 1
+                    creationDate: '2020-11-20T13:57:18+00:00'
+                    lastUpdateDate: '2020-11-20T13:57:18.014+00:00'
+                    createdBy: 'bogdan.eremia@oracle.com'
+                    lastUpdatedBy: 'bogdan.eremia@oracle.com'
+                    name: 'Blue Planet'
+                    content: 'Blue Planet lorem ipsum'
+                  - id: 1
+                    creationDate: '2020-11-20T13:58:18+00:00'
+                    lastUpdateDate: '2020-11-20T13:58:18.014+00:00'
+                    createdBy: 'bogdan.eremia@oracle.com'
+                    lastUpdatedBy: 'bogdan.eremia@oracle.com'
+                    name: 'Planet Earth'
+                    content: 'Planet Earth lorem ipsum'
+              count: 2
+              hasMore: false
+              limit: 25
+              offset: 0
+    post:
+      description: >-
+        You may create an Article using this action. It takes a JSON
+        object containing the article name and article content.
+      summary: Creates a new Article
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ArticleRequest'
+      responses:
+        201:
+          description: 'Article created'
+          schema:
+            $ref: '#/definitions/Article'
+          examples:
+            application/json:
+              id: 1
+              creationDate: '2020-11-20T13:58:18+00:00'
+              lastUpdateDate: '2020-11-20T13:58:18.014+00:00'
+              createdBy: 'bogdan.eremia@oracle.com'
+              lastUpdatedBy: 'bogdan.eremia@oracle.com'
+              name: 'Planet Earth'
+              content: 'Planet Earth lorem ipsum'
+        403:
+          description: 'Forbidden to create Article'
+  /Article/{articleId}:
+    x-summary: Article Data
+    get:
+      description: >-
+        You may see an Article details using this action.
+      summary: Returns an Article by Id
+      parameters:
+        - in: path
+          name: articleId
+          required: true
+          type: integer
+          minimum: 1
+          description: Article Id
+      responses:
+        200:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/Article'
+          examples:
+            application/json:
+              id: 1
+              creationDate: '2020-11-20T13:57:18+00:00'
+              lastUpdateDate: '2020-11-20T13:57:18.014+00:00'
+              createdBy: 'bogdan.eremia@oracle.com'
+              lastUpdatedBy: 'bogdan.eremia@oracle.com'
+              name: 'Blue Planet'
+              content: 'Blue Planet lorem ipsum'
+    patch:
+      description: >-
+        You may update an Article using this action.
+      summary: Updates an Article by Id
+      parameters:
+        - in: path
+          name: articleId
+          required: true
+          type: integer
+          minimum: 1
+          description: Article Id
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ArticleRequest'
+      responses:
+        200:
+          description: 'Updated Article'
+          schema:
+            $ref: '#/definitions/Article'
+          examples:
+            application/json:
+              id: 1
+              creationDate: '2020-11-20T13:58:18+00:00'
+              lastUpdateDate: '2020-11-20T13:58:18.014+00:00'
+              createdBy: 'bogdan.eremia@oracle.com'
+              lastUpdatedBy: 'bogdan.eremia@oracle.com'
+              name: 'Planet Earth'
+              content: 'Planet Earth lorem ipsum'
+        403:
+          description: 'Forbidden to update Article'
+    delete:
+      description: >-
+        You may delete an Article using this action.
+      summary: Deletes an Article by Id
+      parameters:
+        - in: path
+          name: articleId
+          required: true
+          type: integer
+          minimum: 1
+          description: Article Id
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ArticleRequest'
+      responses:
+        204:
+          description: 'No content'
+        403:
+          description: 'Forbidden to delete Article'
+definitions:
+  Article:
+    title: Article
+    type: object
+    properties:
+      id:
+        type: number
+      name:
+        type: string
+      content:
+        type: string
+      creationDate:
+        type: string
+      lastUpdateDate:
+        type: string        
+      createdBy:
+        type: string
+      lastUpdatedBy:
+        type: string
+  ArticleRequest:
+    title: Article Request
+    type: object
+    properties:
+      id:
+        type: number
+      name:
+        type: string
+    required:
+      - id
+      - name
+    example:
+      name: Planet Earth
+      content: Planet Earth lorem ipsum.
+  ArticlesList:
+    title: Articles List
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/Article'
+      count:
+        type: number
+      hasMore:
+        type: boolean
+      limit:
+        type: number                
+      offset:
+        type: number
